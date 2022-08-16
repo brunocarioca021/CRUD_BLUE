@@ -29,7 +29,7 @@ const tapiocas = [
   },
 ];
 
-const findTapiService = () => {
+const findTapiService = async () => {
   return tapiocas;
 };
 
@@ -38,7 +38,7 @@ const findTapiByIdService = (id) => {
 };
 
 const createTapiService = (newTapi) => {
-  newTapi.id = tapiocas.length + 1;
+  newTapi.id = Math.max(...tapiocas.map(o => o.id)) + 1;
   tapiocas.push(newTapi);
   return newTapi;
 };
@@ -50,7 +50,12 @@ const updateTapiService = (id, tapiocaEdited) => {
 };
 
 const deleteTapiService = (id) => {
-  return tapiocas.splice(tapiocas.findIndex((tapioca) => tapioca.id == id), 1);
+  const tapiocaIndex = tapiocas.finfIndex((tapioca) => tapioca.id == id);
+  const tapioca = tapiocas[tapiocaIndex];
+  if(tapiocaIndex != -1){
+    tapiocas.splice(tapiocaIndex, 1);
+  }
+  return tapioca;
 };
 
 module.exports = {
