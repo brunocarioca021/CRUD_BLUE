@@ -4,12 +4,12 @@ const findTapiController = async (req, res) => {
   res.send(await tapiService.findTapiService());
 };
 
-const findTapiByIdController = (req, res) => {
+const findTapiByIdController = async (req, res) => {
   if (!req.params.id) {
-    res.status(400).send({ message: 'Id não informado' });
+    return res.status(400).send({ message: 'Id não informado' });
   }
 
-  const selectTapi = tapiService.findTapiByIdService(req.params.id);
+  const selectTapi = await tapiService.findTapiByIdService(req.params.id);
 
   if (!selectTapi) {
     return res.status(400).send({ message: 'Tapioca não encontrado' });
@@ -18,16 +18,16 @@ const findTapiByIdController = (req, res) => {
   res.send(selectTapi);
 };
 
-const createTapiController = (req, res) => {
+const createTapiController = async (req, res) => {
   if (!req.body.sabor || !req.body.descricao || !req.body.preco) {
     return res
       .status(400)
       .send({ message: 'Voc~e não preencheu todos os dados' });
   }
-  res.send(tapiService.createTapiService(req.body));
+  res.send(await tapiService.createTapiService(req.body));
 };
 
-const updateTapiController = (req, res) => {
+const updateTapiController = async (req, res) => {
   if (!req.params.id) {
     return res.status(400).send({ message: 'Tapioca não encontrada' });
   }
@@ -37,14 +37,14 @@ const updateTapiController = (req, res) => {
       .status(400)
       .send({ message: 'Você não preencheu todos os dados' });
   }
-  res.send(tapiService.updateTapiService(+req.params.id, req.body));
+  res.send(await tapiService.updateTapiService(req.params.id, req.body));
 };
 
-const deleteTapiController = (req, res) => {
+const deleteTapiController = async (req, res) => {
   if (!req.params.id) {
     return res.status(400).send({ message: 'Id invalido, tente novamente' });
   }
-  const tapioca = tapiService.deleteTapiService(+req.params.id);
+  const tapioca = await tapiService.deleteTapiService(req.params.id);
   if (!tapioca) {
     return res.status(400).send({ message: 'Tapioca não encontrada' });
   }
