@@ -6,6 +6,6 @@ const TapiocaSchema = new mongoose.Schema({
   preco: { type: Number, required: true },
 });
 
-const Tapioca = mongoose.model('Tapioca', TapiocaSchema);
+const Tapioca = mongoose.model('tapiocas', TapiocaSchema);
 
 module.exports = Tapioca;

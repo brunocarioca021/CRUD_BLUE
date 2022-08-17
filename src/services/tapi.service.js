@@ -1,61 +1,24 @@
-const tapiocas = [
-  {
-    id: 1,
-    sabor: 'Queijo com coco',
-    descricao:
-      'Tapioca tradicional.',
-    preco: 10.0,
-  },
-  {
-    id: 2,
-    sabor: 'Queijo com charque',
-    descricao:
-      'Saborosa Tapioca Queijo com Charque.',
-    preco: 15.0,
-  },
-  {
-    id: 3,
-    sabor: 'Queijo com charque, calabresa e verduras',
-    descricao:
-      'Tapioca Arretada.',
-    preco: 18.0,
-  },
-  {
-    id: 4,
-    sabor: 'Queijo com goiabada',
-    descricao:
-      'Tapioca Romeu e Julieta.',
-    preco: 12.0,
-  },
-];
+const Tapioca = require('../models/Tapioca');
 
 const findTapiService = async () => {
+  const tapiocas = await Tapioca.find();
   return tapiocas;
 };
 
-const findTapiByIdService = (id) => {
-  return tapiocas.find((tapioca) => tapioca.id == id);
+const findTapiByIdService = async (id) => {
+  return await Tapioca.findById(id);
 };
 
-const createTapiService = (newTapi) => {
-  newTapi.id = Math.max(...tapiocas.map(o => o.id)) + 1;
-  tapiocas.push(newTapi);
-  return newTapi;
+const createTapiService = async (newTapi) => {
+  return await Tapioca.create(newTapi)
 };
 
-const updateTapiService = (id, tapiocaEdited) => {
-  tapiocaEdited['id'] = id;
-  tapiocas[tapiocas.findIndex((tapioca) => tapioca.id == id)] = tapiocaEdited;
-  return tapiocaEdited;
+const updateTapiService = async (id, tapiocaEdited) => {
+  return await Tapioca.findByIdAndUpdate(id, tapiocaEdited, { returnDocument: "after" });
 };
 
-const deleteTapiService = (id) => {
-  const tapiocaIndex = tapiocas.finfIndex((tapioca) => tapioca.id == id);
-  const tapioca = tapiocas[tapiocaIndex];
-  if(tapiocaIndex != -1){
-    tapiocas.splice(tapiocaIndex, 1);
-  }
-  return tapioca;
+const deleteTapiService = async (id) => {
+  return await Tapioca.findByIdAndDelete(id);
 };
 
 module.exports = {

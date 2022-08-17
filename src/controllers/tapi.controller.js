@@ -1,7 +1,7 @@
 const tapiService = require('../services/tapi.service');
 
-const findTapiController = (req, res) => {
-  res.send(tapiService.findTapiService());
+const findTapiController = async (req, res) => {
+  res.send(await tapiService.findTapiService());
 };
 
 const findTapiByIdController = (req, res) => {
