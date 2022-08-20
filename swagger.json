@@ -284,16 +284,13 @@
   },
   "components": {
     "schemas": {
-      "Paletas": {
+      "Tapiocas": {
         "type": "object",
         "properties": {
           "sabor": {
             "type": "string"
           },
           "descricao": {
-            "type": "string"
-          },
-          "foto": {
             "type": "string"
           },
           "preco": {
@@ -304,7 +301,7 @@
       "Carrinho": {
         "type": "object",
         "properties": {
-          "paletaId": {
+          "tapiocaId": {
             "type": "string"
           },
           "quantidade": {
